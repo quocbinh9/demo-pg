@@ -3,7 +3,88 @@ const fs = require("fs");
 const path = require("path");
 const express = require("express");
 
+const TelegramBot = require("node-telegram-bot-api");
+const request = require("request");
+
+const telegramToken = "6585194080:AAFFdzzaVXlLT29HNLQ6uKVg-KUGZNuuNq0";
+const bot = new TelegramBot(telegramToken, { polling: true });
+
+bot.request = async function (command, json) {
+  return request.post(
+    {
+      url: `https://api.telegram.org/bot${telegramToken}/${command}`,
+      body: JSON.stringify(json),
+      headers: { "Content-Type": "application/json" },
+    },
+    (error, res, result) => {
+      console.log({ result });
+    }
+  );
+};
+
+const commands = [
+  {
+    command: "start",
+    description: "wellcome movie bot",
+  },
+  {
+    command: "search",
+    description: "search for movies to data",
+  },
+  {
+    command: "categories",
+    description: "display the categories",
+  },
+  {
+    command: "regions",
+    description: "display the regions",
+  },
+  {
+    command: "years",
+    description: "display the years",
+  },
+  {
+    command: "settings",
+    description: "configure settings",
+  },
+  {
+    command: "subcribe",
+    description: "buy an subcribe account",
+  },
+  {
+    command: "language",
+    description: "change the bot's language",
+  },
+  {
+    command: "help",
+    description: "display the help",
+  },
+];
+bot.request("setMyCommands", {
+  commands,
+  scope: { type: "all_private_chats" },
+  language_code: "en",
+});
+
+bot.onText(/\/start/, (msg) => {
+  bot.sendMessage(
+    msg.chat.id,
+    `Hi! 😊
+I am a movie bot. Give me the keyword of your movie and I will send you the new items (articles, tweets, videos etc.) as soon as they are available.
+
+Use /categories, /regions and /years to filter list movies.
+Use /search to search for movies.
+You can also add me in a Telegram group or channel: howto
+
+For support: /help and @MovieBotSupport
+
+💡 Suggestions 💡
+Don't know where to start? First of all, read the /help 😊, and the tutorials here: https://moviebot.com`
+  );
+});
+
 const app = express();
+// https://github.com/BerkeKaragoz/nextjs-muiv5-typeorm-ts-boilerplate
 
 var dataSource = new typeorm.DataSource({
   type: "postgres",
