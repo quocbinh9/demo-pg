@@ -84,6 +84,12 @@ Don't know where to start? First of all, read the /help 😊, and the tutorials 
 });
 
 const app = express();
+
+app.get((req, res) => {
+  res.join({
+    message: "Hmm!",
+  });
+});
 // https://github.com/BerkeKaragoz/nextjs-muiv5-typeorm-ts-boilerplate
 
 var dataSource = new typeorm.DataSource({
