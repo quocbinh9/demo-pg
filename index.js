@@ -86,7 +86,7 @@ Don't know where to start? First of all, read the /help 😊, and the tutorials 
 const app = express();
 
 app.get("/", (req, res) => {
-  res.join({
+  res.json({
     message: "Hmm!",
   });
 });
