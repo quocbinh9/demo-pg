@@ -2,6 +2,7 @@ const typeorm = require("typeorm");
 const fs = require("fs");
 const path = require("path");
 const express = require("express");
+const bodyParser = require("body-parser");
 
 const TelegramBot = require("node-telegram-bot-api");
 const request = require("request");
