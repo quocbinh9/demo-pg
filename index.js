@@ -8,7 +8,7 @@ const TelegramBot = require("node-telegram-bot-api");
 const request = require("request");
 
 const telegramToken = "6585194080:AAFFdzzaVXlLT29HNLQ6uKVg-KUGZNuuNq0";
-const bot = new TelegramBot(telegramToken, { polling: true });
+const bot = new TelegramBot(telegramToken, { polling: false });
 
 const webhookUrl = "https://demo-pg.vercel.app";
 bot.setWebHook(webhookUrl).then(console.log);
