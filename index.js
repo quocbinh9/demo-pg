@@ -104,23 +104,23 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   bot.processUpdate(req.body);
-  //   ((msg) => {
-  //     console.log(msg);
-  //     bot.sendMessage(
-  //       msg.chat.id,
-  //       `Hi! 😊
-  // I am a movie bot. Give me the keyword of your movie and I will send you the new items (articles, tweets, videos etc.) as soon as they are available.
+  ((msg) => {
+    console.log(msg);
+    bot.sendMessage(
+      msg.chat.id,
+      `Hi! 😊
+  I am a movie bot. Give me the keyword of your movie and I will send you the new items (articles, tweets, videos etc.) as soon as they are available.
 
-  // Use /categories, /regions and /years to filter list movies.
-  // Use /search to search for movies.
-  // You can also add me in a Telegram group or channel: howto
+  Use /categories, /regions and /years to filter list movies.
+  Use /search to search for movies.
+  You can also add me in a Telegram group or channel: howto
 
-  // For support: /help and @MovieBotSupport
+  For support: /help and @MovieBotSupport
 
-  // 💡 Suggestions 💡
-  // Don't know where to start? First of all, read the /help 😊, and the tutorials here: https://moviebot.com`
-  //     );
-  //   })(req.body.message);
+  💡 Suggestions 💡
+  Don't know where to start? First of all, read the /help 😊, and the tutorials here: https://moviebot.com`
+    );
+  })(req.body.message);
   console.log({
     message: "Server listening...",
     body: req.body,
