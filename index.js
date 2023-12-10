@@ -89,6 +89,9 @@ Don't know where to start? First of all, read the /help 😊, and the tutorials 
 const app = express();
 
 app.get("/", (req, res) => {
+  console.log({
+    message: "Hmm!",
+  });
   res.json({
     message: "Hmm!",
   });
