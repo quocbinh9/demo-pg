@@ -106,9 +106,10 @@ app.post("/", (req, res) => {
   bot.processUpdate(req.body);
   ((msg) => {
     console.log(msg);
-    bot.sendMessage(
-      msg.chat.id,
-      `Hi! 😊
+    bot
+      .sendMessage(
+        msg.chat.id,
+        `Hi! 😊
   I am a movie bot. Give me the keyword of your movie and I will send you the new items (articles, tweets, videos etc.) as soon as they are available.
 
   Use /categories, /regions and /years to filter list movies.
@@ -119,7 +120,9 @@ app.post("/", (req, res) => {
 
   💡 Suggestions 💡
   Don't know where to start? First of all, read the /help 😊, and the tutorials here: https://moviebot.com`
-    );
+      )
+      .then(console.log)
+      .catch(console.log);
   })(req.body.message);
   console.log({
     message: "Server listening...",
