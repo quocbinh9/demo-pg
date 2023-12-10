@@ -11,7 +11,7 @@ const telegramToken = "6585194080:AAFFdzzaVXlLT29HNLQ6uKVg-KUGZNuuNq0";
 const bot = new TelegramBot(telegramToken, { polling: false });
 
 const webhookUrl = "https://demo-pg.vercel.app";
-bot.setWebHook(webhookUrl).then(console.log);
+bot.setWebHook(webhookUrl);
 
 bot.request = async function (command, json) {
   return request.post(
@@ -71,6 +71,7 @@ bot.request("setMyCommands", {
 });
 
 bot.onText(/\/start/, (msg) => {
+  console.log(msg);
   bot.sendMessage(
     msg.chat.id,
     `Hi! 😊
@@ -102,6 +103,24 @@ app.get("/", (req, res) => {
 });
 
 app.post("/", (req, res) => {
+  bot.processUpdate(req.body);
+  //   ((msg) => {
+  //     console.log(msg);
+  //     bot.sendMessage(
+  //       msg.chat.id,
+  //       `Hi! 😊
+  // I am a movie bot. Give me the keyword of your movie and I will send you the new items (articles, tweets, videos etc.) as soon as they are available.
+
+  // Use /categories, /regions and /years to filter list movies.
+  // Use /search to search for movies.
+  // You can also add me in a Telegram group or channel: howto
+
+  // For support: /help and @MovieBotSupport
+
+  // 💡 Suggestions 💡
+  // Don't know where to start? First of all, read the /help 😊, and the tutorials here: https://moviebot.com`
+  //     );
+  //   })(req.body.message);
   console.log({
     message: "Server listening...",
     body: req.body,
@@ -113,55 +132,55 @@ app.post("/", (req, res) => {
 });
 // https://github.com/BerkeKaragoz/nextjs-muiv5-typeorm-ts-boilerplate
 
-var dataSource = new typeorm.DataSource({
-  type: "postgres",
-  host: "ap-southeast-1.42f19d1a-ecff-4d66-9dd7-5582402412b3.aws.ybdb.io",
-  username: "admin",
-  password: "DIC83sI3RlQlXlD-w9Wfh_Nr9Hjpdy",
-  database: "movies",
-  synchronize: true,
-  connectionTimeoutMillis: 5000,
-  port: "5433",
-  ssl: {
-    rejectUnauthorized: true,
-    ca: fs.readFileSync(path.join(__dirname, "root.crt")).toString(),
-  },
-  connectionTimeoutMillis: 5000,
-  entities: [require("./entity/Post"), require("./entity/Category")],
-});
+// var dataSource = new typeorm.DataSource({
+//   type: "postgres",
+//   host: "ap-southeast-1.42f19d1a-ecff-4d66-9dd7-5582402412b3.aws.ybdb.io",
+//   username: "admin",
+//   password: "DIC83sI3RlQlXlD-w9Wfh_Nr9Hjpdy",
+//   database: "movies",
+//   synchronize: true,
+//   connectionTimeoutMillis: 5000,
+//   port: "5433",
+//   ssl: {
+//     rejectUnauthorized: true,
+//     ca: fs.readFileSync(path.join(__dirname, "root.crt")).toString(),
+//   },
+//   connectionTimeoutMillis: 5000,
+//   entities: [require("./entity/Post"), require("./entity/Category")],
+// });
 
-dataSource
-  .initialize()
-  .then(function () {
-    var category1 = {
-      name: "TypeScript",
-    };
-    var category2 = {
-      name: "Programming",
-    };
+// dataSource
+//   .initialize()
+//   .then(function () {
+//     var category1 = {
+//       name: "TypeScript",
+//     };
+//     var category2 = {
+//       name: "Programming",
+//     };
 
-    var post = {
-      title: "Control flow based type analysis",
-      text: "TypeScript 2.0 implements a control flow-based type analysis for local variables and parameters.",
-      categories: [category1, category2],
-    };
+//     var post = {
+//       title: "Control flow based type analysis",
+//       text: "TypeScript 2.0 implements a control flow-based type analysis for local variables and parameters.",
+//       categories: [category1, category2],
+//     };
 
-    var postRepository = dataSource.getRepository("Post");
-    postRepository
-      .save(post)
-      .then(function (savedPost) {
-        console.log("Post has been saved: ", savedPost);
-        console.log("Now lets load all posts: ");
+//     var postRepository = dataSource.getRepository("Post");
+//     postRepository
+//       .save(post)
+//       .then(function (savedPost) {
+//         console.log("Post has been saved: ", savedPost);
+//         console.log("Now lets load all posts: ");
 
-        return postRepository.find();
-      })
-      .then(function (allPosts) {
-        console.log("All posts: ", allPosts);
-      });
-  })
-  .catch(function (error) {
-    console.log("Error: ", error);
-  });
+//         return postRepository.find();
+//       })
+//       .then(function (allPosts) {
+//         console.log("All posts: ", allPosts);
+//       });
+//   })
+//   .catch(function (error) {
+//     console.log("Error: ", error);
+//   });
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {
