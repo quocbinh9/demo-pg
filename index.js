@@ -88,12 +88,26 @@ Don't know where to start? First of all, read the /help 😊, and the tutorials 
 
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.get("/", (req, res) => {
   console.log({
     message: "Hmm!",
   });
   res.json({
     message: "Hmm!",
+  });
+});
+
+app.post("/", (req, res) => {
+  console.log({
+    message: "Server listening...",
+    body: req.body,
+    query: req.query,
+  });
+  res.json({
+    message: "Server listening...",
   });
 });
 // https://github.com/BerkeKaragoz/nextjs-muiv5-typeorm-ts-boilerplate
